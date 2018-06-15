@@ -224,9 +224,8 @@ func calculateNetwork(network map[string]types.NetworkStats) (float64, float64) 
 }
 
 // calculateMemUsageUnixNoCache calculate memory usage of the container.
-// Page cache is intentionally excluded to avoid misinterpretation of the output.
 func calculateMemUsageUnixNoCache(mem types.MemoryStats) float64 {
-	return float64(mem.Usage - mem.Stats["cache"])
+	return float64(mem.Stats["rss"] + mem.Stats["swap"])
 }
 
 func calculateMemPercentUnixNoCache(limit float64, usedNoCache float64) float64 {
